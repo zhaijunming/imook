@@ -1,0 +1,57 @@
+{% extends 'org_base.html' %}
+{% block custom_title %}机构课程{% endblock %}
+{% block page_path %}机构课程列表页{% endblock %}
+{% block right_form %}
+    <div class="right companycenter layout" >
+		<div class="head">
+			<h1>机构课程列表页</h1>
+		</div>
+		<div class="brief group_list">
+                {% for courses in all_courses %}
+                <div class="module1_5 box">
+                    <a class="comp-img-box" href="{% url 'course:course_detail' courses.id %}">
+                        <img width="214" height="195" src="{{ MEDIA_URL }}{{ courses.image }}"/>
+                    </a>
+                    <div class="des">
+                        <a href="{% url 'course:course_detail' courses.id %}"><h2>{{ courses.name }}</h2></a>
+                        <span class="fl">课时：<i class="key">{{ courses.learn_times }}</i></span>
+                        <span class="fr">学习人数：{{ courses.students }}</span>
+                    </div>
+                    <div class="bottom">
+                        <span class="fl">{{ courses.course_org.name }}</span>
+                         <span class="star fr  notlogin
+                            " data-favid="13" data-fav-type="4">
+                            0
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+
+		</div>
+{#			<div class="pageturn">#}
+{#                <ul class="pagelist">#}
+{#                    <li class="active"><a href="?page=1">1</a></li>#}
+{#                </ul>#}
+{#            </div>#}
+        <div class="pagination">
+            <span class="step-links">
+                {% if all_courses.has_previous %}
+                    <a href="?page={{ all_courses.previous_page_number }}">上一页</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ all_courses.number }} of {{ all_courses.paginator.num_pages }}.
+                </span>
+                {% if all_courses.has_next %}
+                    <a href="?page={{ all_courses.next_page_number }}">下一页</a>
+                {% endif %}
+            </span>
+
+        </div>
+	</div>
+{% endblock %}
+
+
+
+
+
+
